@@ -11,7 +11,11 @@ let library = {
             s03: { id: "s03",
                    name: "Purple Haze",
                    artist: "Jimi Hendrix",
-                   album: "Are You Experienced"}
+                   album: "Are You Experienced"},
+            s04: { id: "s04",
+                   name: "Little Wing",
+                   artist: "Jimi Hendrix",
+                   album: "Are You Experienced"},
           },
 
 
@@ -30,43 +34,75 @@ let library = {
     return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
   },
 
-
-  printAllSongNames: function() {
-    // print the names of all the songs to the console
+  printSongName: function(songID) {
+    // console.log(library.songs[songID].name)
+    console.log(library.songs[songID].name)
   },
 
-  printSongName: function(songID) {
-    // print the name of a song when given its ID
+  printAllSongNames: function() {
+    let songIDs = Object.keys(library.songs)
+
+    for (i = 0; i < songIDs.length; i++) {
+      console.log(library.songs[songIDs[i]].name)
+    }
+
   },
 
   printPlaylistName: function(playlistID) {
-    // Print the name of a playlist when given its ID 
+    console.log(library.playlists[playlistID].name)
   },
 
   printAllPlaylistNames: function() {
-    // Print the nmaes of all the playlists 
+    let playlistIDs = Object.keys(library.playlists)
+
+    for (i = 0; i < playlistIDs.length; i++) {
+      this.printPlaylistName(playlistIDs[i])
+    }
+
   },
 
 
   printPlaylistSongs: function(playlistID) {
-    // Print the names of all the songs in whatever playlist id was given
+    let playlistSongs = library.playlists[playlistID].tracks;
+    console.log(playlistSongs);
+
+    for (i = 0; i < playlistSongs.length; i++) {
+      library.printSongName(playlistSongs[i])
+    }
   },
 
-  addSong: function(name, artist, album) {
-    // add a new song to the songs object. The song should be its own object, 
-    // containing a randomly generated id, a name, an artist, and an album 
-    // console.log to confirm that the song has been added.
+  addSong: function(songName, songArtist, songAlbum) {
+    let newSong = {
+      id: library.generateUid(),
+      name: songName,
+      artist: songArtist,
+      album: songAlbum
+    }
+
+    library.songs[newSong.id] = newSong;
+
+    console.log(library.songs)
+
   },
 
   addSongToPlaylist: function(songID, playlistID) {
-    // given a songID, add that song to the playlist for the given playlistID
-    //console.log the playlist to make sure the song was added.
+    this.printPlaylistSongs(playlistID)
+    library.playlists[playlistID].tracks.push(songID)
+    this.printPlaylistSongs(playlistID)
   },
 
-  addPlaylist: function(name, arrOfSongs) {
-    // add a new playlist to the playlist object. it will be
-    // containing a randomly generated id, a name, and an array of songs to be added to the playlist 
-    // console.log to confirm that the playlist has been added.
+  addPlaylist: function(playlistName, arrOfSongs) {
+    let newPlaylist = {
+      id: library.generateUid,
+      name: playlistName,
+      tracks: arrOfSongs
+    }
+
+    library.playlists[newPlaylist.id] = newPlaylist;
+
+    this.printAllPlaylistNames();
+
+
   },
 
 
@@ -75,11 +111,26 @@ let library = {
 
 }
 
+// library.printAllSongNames()
 
-
-// console.log(Object.keys(library.songs))
+// console.log(Object.keys(library.songs.s01))
 
 // library.addSongToPlaylist('s02', 'p02');
 
 // console.log(library.songs);
+
+// console.log(Object.keys(library.songs.s01))
+
+// console.log(library.songs.s01.name)
+
+// library.printAllSongNames()
+
+// library.addSong("Blue World", "Mac Miller", "Circles");
+
+// library.addPlaylist('Skiing Tunes', ['s01', 's03', 's04'])
+
+// console.log(library.generateUid())
+
+
+
 
